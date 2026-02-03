@@ -1,0 +1,68 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+.idea/
+.vscode/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Visual Studio Code related
+.vscode/
+
+# Flutter/Dart related
+**/build/
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/.pub-cache/
+**/.pub/
+
+
+# Android related
+**/android/**/generated/
+**/android/app/src/main/res/values/strings.xml (if sensitive)
+**/*.keystore
+**/*.jks
+**/*.apk
+**/*.aab
+**/android/local.properties
+**/android/.gradle/
+**/android/captures/
+**/android/.cxx/
+**/android/*.iml
+
+# iOS related
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Pods/
+**/ios/Runner.xcworkspace/xcuserdata/
+**/ios/*.xcworkspace
+**/ios/*.xcscheme
+**/ios/*.xcconfig
+
+# Web related
+**/node_modules/
+**/dist/
+
+# Project Specific
+.gemini/
+**/brain/
+isar_service.g.dart
+*.freezed.dart
+*.g.dart

@@ -1,0 +1,21 @@
+{
+  "appTitle": "Google Tech News",
+  "latestNews": "Latest News",
+  "savedArticles": "Saved Articles",
+  "settings": "Settings",
+  "sendFeedback": "Send Feedback",
+  "sendFeedbackSubtitle": "Report bugs or request features",
+  "localPrivate": "100% Local & Private",
+  "localPrivateSubtitle": "Zero data sent to external AI APIs. All processing happens on-device.",
+  "version": "Version",
+  "versionSubtitle": "1.1.0-Zero (Release)",
+  "backToTop": "Back to Top",
+  "refresh": "Refresh",
+  "search": "Search news...",
+  "noArticlesFound": "No articles found",
+  "error": "Error",
+  "retry": "Retry",
+  "share": "Share",
+  "bookmark": "Bookmark",
+  "removeBookmark": "Remove Bookmark"
+}
