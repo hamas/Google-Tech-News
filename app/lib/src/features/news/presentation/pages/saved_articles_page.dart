@@ -14,18 +14,23 @@ class SavedArticlesPage extends ConsumerWidget {
         ref.watch<AsyncValue<List<NewsArticle>>>(bookmarksProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Saved Articles')),
       body: bookmarksAsync.when(
         data: (articles) {
           return CustomScrollView(
-            slivers: SavedArticlesPage.buildSlivers(context, articles),
+            slivers: [
+              SliverAppBar(
+                floating: true,
+                snap: true,
+                title: const Text('Saved Articles'),
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                surfaceTintColor: Colors.transparent,
+              ),
+              ...SavedArticlesPage.buildSlivers(context, articles),
+            ],
           );
         },
-        error: (err, stack) =>
-            SliverFillRemaining(child: Center(child: Text('Error: $err'))),
-        loading: () => const SliverFillRemaining(
-          child: Center(child: CircularProgressIndicator()),
-        ),
+        error: (err, stack) => Center(child: Text('Error: $err')),
+        loading: () => const Center(child: CircularProgressIndicator()),
       ),
     );
   }
@@ -62,7 +67,7 @@ class SavedArticlesPage extends ConsumerWidget {
 
     return [
       SliverPadding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         sliver: SliverList(
           delegate: SliverChildBuilderDelegate((context, index) {
             final article = articles[index];

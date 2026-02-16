@@ -27,7 +27,7 @@ void callbackDispatcher() {
             );
           }
 
-          // Note: In a full app, we would open Isar here and save.
+          // Note: In a full app, we would open Drift here and save.
           // For MVP, we verify the network call succeeds.
 
           return Future.value(true);

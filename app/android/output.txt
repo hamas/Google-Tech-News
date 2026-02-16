@@ -1,0 +1,111 @@
+> Task :gradle:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle:compileKotlin UP-TO-DATE
+> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy NO-SOURCE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+
+> Configure project :
+DEBUG: Subproject 'app'
+DEBUG:   Project Root: P:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots match. Overriding build directory.
+DEBUG: Subproject 'connectivity_plus'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'dynamic_color'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'firebase_analytics'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'firebase_core'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'firebase_crashlytics'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'firebase_messaging'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'flutter_inappwebview_android'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'flutter_local_notifications'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'flutter_native_splash'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'flutter_tts'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'integration_test'
+DEBUG:   Project Root: P:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots match. Overriding build directory.
+DEBUG: Subproject 'path_provider_android'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'printing'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'share_plus'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'sqflite_android'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'sqlite3_flutter_libs'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'url_launcher_android'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+DEBUG: Subproject 'workmanager_android'
+DEBUG:   Project Root: C:\
+DEBUG:   RootProject Root: P:\
+DEBUG:   Roots differ. Keeping default build directory.
+
+> Task :projects FAILED
+
+[Incubating] Problems report is available at: file:///P:/Repo%20Projects/Google%20Tech%20News/app/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':projects'.
+> 'other' has different root
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 2s
+5 actionable tasks: 1 executed, 4 up-to-date

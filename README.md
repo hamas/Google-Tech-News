@@ -27,7 +27,7 @@ A Material 3-inspired persistent filter bar allows for instantaneous navigation 
 - **Micro-Animations**: Fluid, spring-based transitions as users toggle between categories.
 
 ### 📦 Robust "Offline-First" Persistence
-True to the needs of the mobile professional, the app features a sophisticated caching layer powered by **Isar Database**. 
+True to the needs of the mobile professional, the app features a sophisticated caching layer powered by **Drift (SQLite)**. 
 - **Instant Boot**: The app loads from the local cache in milliseconds, eliminating the "blank screen" anxiety common in traditional news apps.
 - **Zero-Flicker Logic**: Decoupled sync patterns ensure that the UI remains stable on startup; updates only happen when you decide to Pull-to-Refresh.
 - **Image Caching**: Every hero image is persisted locally, ensuring your magazine remains beautiful even in airplane mode.
@@ -63,9 +63,9 @@ To maintain a "Butter-Smooth" 120Hz scrolling experience, the entire XML parsing
 
 The application leverages **Flutter Riverpod** to create a state graph that is both predictable and extremely resilient to network failures or database bottlenecks.
 
-- **The Reactive Feed Stream**: The core list of articles is exposed via a `StreamProvider` that watches the Isar database directly. This creates a "Live" effect where the UI reactively updates as soon as the repository finishes a sync, without requiring a manual refresh signal.
+- **The Reactive Feed Stream**: The core list of articles is exposed via a `StreamProvider` that watches the Drift database directly. This creates a "Live" effect where the UI reactively updates as soon as the repository finishes a sync, without requiring a manual refresh signal.
 - **Decoupled Sync Pattern**: We specifically decoupled the remote fetch logic from the feed stream. New data is only pulled when the user performs a `Pull-to-Refresh`, while the app always boots instantly from the local database. This "Offline-First" approach provides 100% uptime for the user, regardless of their connection status.
-- **Global Dependency Graph**: Providers are used for high-level dependency injection. The `isarServiceProvider`, `rssFetcherProvider`, and `newsRepositoryProvider` are all structured to be easily mockable, paving the way for robust unit and integration testing.
+- **Global Dependency Graph**: Providers are used for high-level dependency injection. The `driftServiceProvider`, `rssFetcherProvider`, and `newsRepositoryProvider` are all structured to be easily mockable, paving the way for robust unit and integration testing.
 
 ---
 
@@ -86,12 +86,12 @@ Every margin, padding, and gap is mathematically aligned to a base-8 grid.
 
 ---
 
-## 📦 Data Persistence with Isar Database
+## 📦 Data Persistence with Drift (SQLite)
 
-We chose **Isar** as our persistence engine for its extraordinary speed and native Flutter support.
-- **NoSQL High Performance**: Articles are stored in a local NoSQL collection with full-text indexing on titles and summaries, facilitating near-instant search results.
+We chose **Drift** as our persistence engine for its type-safety and robust SQL support.
+- **Structured Relational Data**: Articles are stored in a local SQLite database with strictly defined schemas, ensuring data integrity.
 - **Auto-Migration**: The schema is designed to evolve, ensuring that users can update the app without losing their bookmarked or cached news.
-- **Memory Efficiency**: Isar's binary storage format ensures a minimal footprint on the device's storage while allowing for lightning-fast query execution.
+- **Reactive Streams**: Drift's stream queries allow the UI to automatically rebuild whenever the underlying data changes, providing a seamless reactive experience.
 
 ---
 
@@ -161,7 +161,7 @@ This architecture ensures that business rules remain consistent across the entir
     ```bash
     flutter pub get
     ```
-4.  **Run Build Runner** (for Isar schema generation)
+4.  **Run Build Runner** (for Drift schema generation)
     ```bash
     flutter pub run build_runner build --delete-conflicting-outputs
     ```

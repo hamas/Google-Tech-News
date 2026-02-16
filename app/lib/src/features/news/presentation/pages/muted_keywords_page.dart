@@ -10,63 +10,87 @@ class MutedKeywordsPage extends ConsumerWidget {
     final keywordsAsync = ref.watch(mutedKeywordsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Muted Keywords')),
-      body: keywordsAsync.when(
-        data: (keywords) {
-          if (keywords.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.filter_list_off,
-                    size: 64,
-                    color: Colors.grey,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            snap: true,
+            title: const Text('Muted Keywords'),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            surfaceTintColor: Colors.transparent,
+          ),
+          keywordsAsync.when(
+            data: (keywords) {
+              if (keywords.isEmpty) {
+                return SliverFillRemaining(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.filter_list_off,
+                          size: 64,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'No keywords muted',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        const Text('Add keywords to filter articles'),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'No keywords muted',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  const Text('Add keywords to filter articles'),
-                ],
-              ),
-            );
-          }
-          return ListView.builder(
-            itemCount: keywords.length,
-            itemBuilder: (context, index) {
-              final item = keywords[index];
-              return Dismissible(
-                key: Key('mute_${item.id}'),
-                background: Container(
-                  color: Colors.red,
-                  alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.only(right: 16),
-                  child: const Icon(Icons.delete, color: Colors.white),
-                ),
-                direction: DismissDirection.endToStart,
-                onDismissed: (direction) {
-                  ref.read(newsRepositoryProvider).deleteMutedKeyword(item.id);
-                },
-                child: ListTile(
-                  title: Text(item.keyword),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete_outline),
-                    onPressed: () {
-                      ref
-                          .read(newsRepositoryProvider)
-                          .deleteMutedKeyword(item.id);
+                );
+              }
+              return SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final item = keywords[index];
+                      return Dismissible(
+                        key: Key('mute_${item.id}'),
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.only(right: 16),
+                          child: const Icon(Icons.delete, color: Colors.white),
+                        ),
+                        direction: DismissDirection.endToStart,
+                        onDismissed: (direction) {
+                          ref
+                              .read(newsRepositoryProvider)
+                              .deleteMutedKeyword(item.id);
+                        },
+                        child: ListTile(
+                          title: Text(item.keyword),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete_outline),
+                            onPressed: () {
+                              ref
+                                  .read(newsRepositoryProvider)
+                                  .deleteMutedKeyword(item.id);
+                            },
+                          ),
+                        ),
+                      );
                     },
+                    childCount: keywords.length,
                   ),
                 ),
               );
             },
-          );
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
+            loading: () => const SliverFillRemaining(
+              child: Center(child: CircularProgressIndicator()),
+            ),
+            error: (err, stack) => SliverFillRemaining(
+              child: Center(child: Text('Error: $err')),
+            ),
+          ),
+          const SliverPadding(padding: EdgeInsets.only(bottom: 80)),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

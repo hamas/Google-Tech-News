@@ -41,13 +41,16 @@ class ShareableStoryWidget extends StatelessWidget {
                     const Icon(Icons.rocket_launch,
                         color: Colors.blue, size: 48),
                     const SizedBox(width: 16),
-                    Text(
-                      'GOOGLE TECH NEWS',
-                      style: GoogleFonts.outfit(
-                        color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 2,
+                    Expanded(
+                      child: Text(
+                        'GOOGLE TECH NEWS',
+                        style: GoogleFonts.outfit(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 2,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -63,25 +66,30 @@ class ShareableStoryWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     height: 1.1,
                   ),
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 40),
 
                 // Source & Time
                 Row(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        article.source,
-                        style: GoogleFonts.outfit(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
+                    Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          article.source,
+                          style: GoogleFonts.outfit(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
@@ -93,25 +101,27 @@ class ShareableStoryWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Read the full story on',
-                          style: GoogleFonts.outfit(
-                            color: Colors.white70,
-                            fontSize: 24,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Read the full story on',
+                            style: GoogleFonts.outfit(
+                              color: Colors.white70,
+                              fontSize: 24,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Google Tech News App',
-                          style: GoogleFonts.outfit(
-                            color: Colors.white,
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
+                          Text(
+                            'Google Tech News App',
+                            style: GoogleFonts.outfit(
+                              color: Colors.white,
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(12),

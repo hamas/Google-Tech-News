@@ -1,31 +1,48 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:html/dom.dart';
 
 class NewsScraperService {
-  /// Fetches and extracts clean content from a URL
-  Future<List<Map<String, String>>> scrape(String url) async {
-    try {
-      final response = await http.get(Uri.parse(url), headers: {
-        'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      });
+  final Dio _dio;
+  NewsScraperService(this._dio);
 
-      if (response.statusCode == 200) {
-        return await compute(_parseHtmlThread, response.body);
+  /// Fetches and extracts clean content from a URL, with option to skip a specific image (e.g. feature image)
+  Future<List<Map<String, String>>> scrape(String url,
+      {String? skipImageUrl}) async {
+    try {
+      final response = await _dio.get<String>(
+        url,
+        options: Options(
+          headers: {
+            'User-Agent':
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          },
+          receiveTimeout: const Duration(seconds: 10),
+          sendTimeout: const Duration(seconds: 10),
+        ),
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        return await compute(_parseHtmlThread, {
+          'html': response.data!,
+          'skipImageUrl': skipImageUrl,
+        });
       } else {
         throw Exception('Failed to load page: ${response.statusCode}');
       }
     } catch (e) {
       debugPrint('Scraper Error: $e');
-      return []; // Return empty to trigger fallback
+      rethrow; // Rethrow to let UI handle it
     }
   }
 }
 
 /// Isolate function for heavy HTML parsing
-List<Map<String, String>> _parseHtmlThread(String html) {
+List<Map<String, String>> _parseHtmlThread(Map<String, dynamic> args) {
+  final String html = args['html'] as String;
+  final String? skipImageUrl = args['skipImageUrl'] as String?;
+
   final document = parser.parse(html);
   final blocks = <Map<String, String>>[];
 
@@ -70,7 +87,10 @@ List<Map<String, String>> _parseHtmlThread(String html) {
         }
       } else if (tag == 'img') {
         final src = child.attributes['src'];
-        if (src != null && !src.contains('spinner') && !src.contains('icon')) {
+        if (src != null &&
+            !src.contains('spinner') &&
+            !src.contains('icon') &&
+            (skipImageUrl == null || !src.contains(skipImageUrl))) {
           blocks.add({'type': 'image', 'url': src});
         }
       } else if (child.children.isNotEmpty) {

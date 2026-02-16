@@ -6,11 +6,7 @@ packages:
   - backend
   - core
 
-command:
-  bootstrap:
-    # It seems you are using a newer version of Dart/Flutter where 'pub get' is standard.
-    # Melos bootstrap links local packages.
-    usePubspecOverrides: true
+
 
 scripts:
   analyze:

@@ -224,7 +224,8 @@ class _NewsShellPageState extends ConsumerState<NewsShellPage> {
       case 2:
         return [
           SliverPadding(
-            padding: const EdgeInsets.all(16),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 Text(

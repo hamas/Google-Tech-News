@@ -4,11 +4,13 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.7.0 <4.0.0'
+  flutter: ">=3.41.0"
 
 dependencies:
   json_annotation: ^4.9.0
 
 dev_dependencies:
+  lints: ^6.1.0
   build_runner: ^2.4.9
   json_serializable: ^6.8.0

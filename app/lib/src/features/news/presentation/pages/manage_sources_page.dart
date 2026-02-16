@@ -119,60 +119,85 @@ class _ManageSourcesPageState extends ConsumerState<ManageSourcesPage> {
     final sourcesAsync = ref.watch(newsSourcesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Manage Sources')),
-      body: sourcesAsync.when(
-        data: (sources) {
-          if (sources.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.rss_feed, size: 64, color: Colors.grey),
-                  const SizedBox(height: 16),
-                  Text(
-                    'No custom sources',
-                    style: Theme.of(context).textTheme.titleMedium,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            snap: true,
+            title: const Text('Manage Sources'),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            surfaceTintColor: Colors.transparent,
+          ),
+          sourcesAsync.when(
+            data: (sources) {
+              if (sources.isEmpty) {
+                return SliverFillRemaining(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.rss_feed,
+                            size: 64, color: Colors.grey),
+                        const SizedBox(height: 16),
+                        Text(
+                          'No custom sources',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Add your favorite RSS feeds to get more news.',
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 8),
-                  const Text('Add your favorite RSS feeds to get more news.'),
-                ],
-              ),
-            );
-          }
-          return ListView.builder(
-            itemCount: sources.length,
-            itemBuilder: (context, index) {
-              final source = sources[index];
-              return ListTile(
-                title: Text(source.name),
-                subtitle: Text(source.url),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Switch(
-                      value: source.isEnabled,
-                      onChanged: (val) {
-                        ref
-                            .read(newsRepositoryProvider)
-                            .toggleNewsSource(source.id, val);
-                      },
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete_outline),
-                      onPressed: () {
-                        ref
-                            .read(newsRepositoryProvider)
-                            .deleteNewsSource(source.id);
-                      },
-                    ),
-                  ],
+                );
+              }
+              return SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final source = sources[index];
+                      return ListTile(
+                        title: Text(source.name),
+                        subtitle: Text(source.url),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Switch(
+                              value: source.isEnabled,
+                              onChanged: (val) {
+                                ref
+                                    .read(newsRepositoryProvider)
+                                    .toggleNewsSource(source.id, val);
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline),
+                              onPressed: () {
+                                ref
+                                    .read(newsRepositoryProvider)
+                                    .deleteNewsSource(source.id);
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    childCount: sources.length,
+                  ),
                 ),
               );
             },
-          );
-        },
-        error: (err, _) => Center(child: Text('Error: $err')),
-        loading: () => const Center(child: CircularProgressIndicator()),
+            error: (err, _) => SliverFillRemaining(
+              child: Center(child: Text('Error: $err')),
+            ),
+            loading: () => const SliverFillRemaining(
+              child: Center(child: CircularProgressIndicator()),
+            ),
+          ),
+          const SliverPadding(padding: EdgeInsets.only(bottom: 80)),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _showAddDialog,

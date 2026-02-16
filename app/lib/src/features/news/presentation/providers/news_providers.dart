@@ -13,6 +13,7 @@ import '../../domain/repositories/news_repository.dart';
 import '../../domain/usecases/fetch_news.dart';
 import '../../domain/services/reader_mode/news_content_service.dart';
 import '../../domain/services/reader_mode/news_scraper_service.dart';
+import '../../domain/services/reader_mode/news_precache_service.dart';
 import '../../../../core/services/story_share_service.dart';
 
 // --- Data Sources & Infrastructure ---
@@ -50,7 +51,14 @@ final newsContentServiceProvider = Provider((ref) {
 });
 
 final newsScraperServiceProvider = Provider((ref) {
-  return NewsScraperService();
+  return NewsScraperService(ref.watch(dioProvider));
+});
+
+final newsPreCacheServiceProvider = Provider((ref) {
+  return NewsPreCacheService(
+    ref.watch(newsScraperServiceProvider),
+    ref.watch(newsRepositoryProvider),
+  );
 });
 
 final storyShareServiceProvider = Provider((ref) {
@@ -110,7 +118,19 @@ class NewsFeedNotifier extends Notifier<AsyncValue<List<NewsArticle>>> {
 
   Future<void> refresh() async {
     state = const AsyncLoading();
-    await ref.read(newsRepositoryProvider).refreshNews();
+    final result = await ref.read(newsRepositoryProvider).refreshNews();
+
+    if (result.isSuccess) {
+      // After successful refresh, wait for the state to populate (via the stream watcher)
+      // or just pull from the repository once and start pre-caching.
+      // For simplicity, we grab whatever is in the current state value if available.
+      final articles = state.value ?? [];
+      if (articles.isNotEmpty) {
+        // Trigger background pre-caching
+        // ignore: unawaited_futures
+        ref.read(newsPreCacheServiceProvider).start(articles);
+      }
+    }
   }
 }
 

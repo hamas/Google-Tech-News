@@ -13,15 +13,17 @@ class NewsSources {
         'https://news.google.com/rss/search?q=Google+Gemini+Models+Update&hl=en-US',
 
     // Operating Systems
-    'ChromeOS Dev': 'https://chromeos.dev/feed.xml',
+    'ChromeOS Dev':
+        'https://news.google.com/rss/search?q=ChromeOS+Dev+Updates&hl=en-PK&gl=PK&ceid=PK:en',
     'Chrome Releases': 'https://feeds.feedburner.com/GoogleChromeReleases',
     'Aluminium OS':
-        'https://news.google.com/rss/search?q=Aluminium+OS+Google+leak&hl=en-US',
+        'https://news.google.com/rss/search?q=Aluminium+OS+Google+leak&hl=en-PK&gl=PK&ceid=PK:en',
     'ChromeOS Flex':
-        'https://news.google.com/rss/search?q=Chrome+OS+Flex+Updates&hl=en-US',
+        'https://news.google.com/rss/search?q=Chrome+OS+Flex+Updates&hl=en-PK&gl=PK&ceid=PK:en',
 
     // Design & Cloud
-    'Material Design': 'https://material.io/blog/rss',
+    'Material Design':
+        'https://news.google.com/rss/search?q=Material+Design+Updates&hl=en-PK&gl=PK&ceid=PK:en',
     'Google Cloud':
         'https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/rss/',
     'Search Central': 'https://developers.google.com/search/blog/feed.xml',
