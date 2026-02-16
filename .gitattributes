@@ -1,0 +1,19 @@
+# Ignore platform-specific generated code from language stats
+app/windows/** linguist-vendored
+app/linux/** linguist-vendored
+app/macos/** linguist-vendored
+app/android/** linguist-vendored
+app/ios/** linguist-vendored
+app/web/** linguist-vendored
+
+# Ignore build artifacts if checked in
+build/** linguist-vendored
+**/build/** linguist-vendored
+
+# Ignore generated plugin files
+**/.flutter-plugins linguist-vendored
+**/.flutter-plugins-dependencies linguist-vendored
+
+# Mark generated Dart files
+**/*.g.dart linguist-generated
+**/*.freezed.dart linguist-generated
