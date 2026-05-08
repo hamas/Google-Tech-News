@@ -31,8 +31,12 @@ class $AssetsBrandingGen {
       const AssetGenImage('assets/branding/splash_logo.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [appIcon, appIconForeground, branding, splashLogo];
+  List<AssetGenImage> get values => [
+    appIcon,
+    appIconForeground,
+    branding,
+    splashLogo,
+  ];
 }
 
 class Assets {
@@ -108,15 +112,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
